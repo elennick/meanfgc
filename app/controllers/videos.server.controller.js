@@ -17,6 +17,7 @@ exports.getVideos = function(req, res) {
     video1.game = 'Ultra Street Fighter 4';
     video1.postedBy = 'YogaFlame24';
     video1.event = 'CEO 2013';
+    video1.videoLink = 'http://youtube.com';
     videos.push(video1);
 
     var video2 = new Video();
@@ -26,6 +27,7 @@ exports.getVideos = function(req, res) {
     video2.game = 'Ultra Street Fighter 4';
     video2.postedBy = 'bafael';
     video2.event = 'SXSW 2015';
+    video2.videoLink = 'http://youtube.com';
     videos.push(video2);
 
     var video3 = new Video();
@@ -35,7 +37,8 @@ exports.getVideos = function(req, res) {
     video3.game = 'Ultra Street Fighter 4';
     video3.postedBy = 'YogaFlame24';
     video3.event = 'Evolution 2014';
-    videos.push(video1);
+    video3.videoLink = 'http://youtube.com';
+    videos.push(video3);
 
     res.json(videos);
 };
