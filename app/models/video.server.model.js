@@ -39,7 +39,12 @@ var VideoSchema = new Schema({
     url: {
         type: String,
         trim: true
+    },
+    event: {
+        type: String,
+        trim: true
     }
+
 });
 
 mongoose.model('Video', VideoSchema);
