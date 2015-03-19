@@ -11,6 +11,6 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 		state('videos', {
 			url: '/',
 			templateUrl: 'modules/core/views/videos.client.view.html'
-		})
+		});
 	}
 ]);

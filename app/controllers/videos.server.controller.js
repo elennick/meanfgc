@@ -34,7 +34,7 @@ exports.getVideos = function(req, res) {
     video3.players = [ 'Daigo', 'Nuckledu' ];
     video3.game = 'Ultra Street Fighter 4';
     video3.postedBy = 'YogaFlame24';
-    video3.event = "Evolution 2014";
+    video3.event = 'Evolution 2014';
     videos.push(video1);
 
     res.json(videos);
