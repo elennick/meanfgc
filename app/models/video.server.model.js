@@ -36,7 +36,7 @@ var VideoSchema = new Schema({
         type: String,
         trim: true
     },
-    url: {
+    videoId: {
         type: String,
         trim: true
     },

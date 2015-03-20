@@ -1,8 +1,11 @@
 <div data-ng-controller="VideoController">
     <table>
         <tr ng-repeat="video in videos">
-            <td ng-bind="video.url"></td>
-            <td ng-bind="video.title"></td>
+            <td youtube-video video-id="video.videoId">
+
+            </td>
         </tr>
     </table>
 </div>
+
+<script src="https://www.youtube.com/iframe_api"></script>
