@@ -5,10 +5,9 @@ angular.module('core').controller('VideoController', ['$scope', 'VideoService',
         VideoService.getVideos()
             .success(function(response) {
                 $scope.videos = response;
-                console.log(response);
             })
             .error(function(response) {
-                console.log(response);
+                console.log("error! " + response);
             });
     }
 ]);
