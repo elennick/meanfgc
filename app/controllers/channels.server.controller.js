@@ -9,21 +9,23 @@ var _ = require('lodash'),
     Channel = mongoose.model('Channel');
 
 
-var requestHttps = function(channelId,publishedAfter,nextPageToken, cb) {
+var requestHttps = function(channelId,publishedAfter,nextPageToken) {
     
     var https = require('https');
+
+    var path = '/youtube/v3/search?key=AIzaSyAhvqkZmykgopZc990N7NQvWGUkNEDlHes';
+    path += ('&part=snippet');
+    path += ('&maxResults=50');
+    path += ('&channelId=' + channelId);
+    path += ('&publishedAfter=' + publishedAfter);
+    if (nextPageToken) {
+        path += ('&pageToken=' + nextPageToken);
+    }
+
     var options = {
         host: 'www.googleapis.com',
-        path: '/youtube/v3/search?key=AIzaSyAhvqkZmykgopZc990N7NQvWGUkNEDlHes'
+        path: path
     };
-
-    options.path += ('&part=snippet');
-    options.path += ('&maxResults=50');
-    options.path += ('&channelId=' + channelId);
-    options.path += ('&publishedAfter=' + publishedAfter);
-    if (nextPageToken) {
-        options.path += ('&nextPageToken=' + nextPageToken);
-    }
 
     var callback = function(response) {
         var request_data = '';
@@ -33,8 +35,27 @@ var requestHttps = function(channelId,publishedAfter,nextPageToken, cb) {
         });
 
         response.on('end', function() {
-            if (cb && typeof cb === 'function') {
-                cb(request_data);
+            var json_data = JSON.parse(request_data);
+            for (var i=0; i < json_data.items.length; i++) {
+                var item = json_data.items[i];
+                new Video({title: item.snippet.title, postDate: item.snippet.publishedAt, description: item.snippet.description,
+                    postedBy: item.snippet.channelTitle, videoId: item.id.videoId}).save();
+            }
+
+            if (json_data.nextPageToken) {
+                var nextPageToken = json_data.nextPageToken;
+                console.log(nextPageToken);
+                requestHttps(channelId, publishedAfter, nextPageToken);
+            }
+            else {
+                console.log('done');
+                Channel.findOne({'youtube_id': channelId}, 'last_updated', function(err, channel) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    channel.last_updated = new Date().toISOString();
+                    channel.save();
+                });
             }
         });
     };
@@ -42,6 +63,24 @@ var requestHttps = function(channelId,publishedAfter,nextPageToken, cb) {
     https.request(options,callback).end();
 
 };
+
+
+exports.loadChannelVideos = function(req, res) {
+    var channelName = req.query.channel;
+    
+    Channel.findOne({'name':channelName}, 'name youtube_id last_updated', function(err, channel) {
+        if (err) console.log(err);
+        if (channel) {
+            var last_updated = new Date(channel.last_updated).toISOString();
+            requestHttps(channel.youtube_id, last_updated, undefined);
+        }
+        else {
+            res.sendStatus(404);
+        }
+    });
+
+};
+
 
 exports.loadChannelData = function(req, res) {
 
@@ -66,30 +105,3 @@ exports.loadChannelData = function(req, res) {
     res.send('OK');
 
 };
-
-exports.loadChannelVideos = function(req, res) {
-    var channelName = req.query.channel;
-
-    requestHttps('UC1UzB_b7NSxoRjhZZDicuqw', '2015-01-01T00:00:00Z', undefined, function(data) {
-        var json_data = JSON.parse(data);
-        if (json_data.nextPageToken) {
-            console.log(JSON.stringify(json_data.nextPageToken));
-            requestHttps('UC1UzB_b7NSxoRjhZZDicuqw','2015-01-01T00:00:00Z', json_data.nextPageToken, this); 
-        }
-        else {
-            res.send('OK');
-        }        
-        res.send(JSON.stringify(json_data.nextPageToken));    
-    });
-    
-
-    Channel.findOne({'name':channelName}, 'name youtube_id last_updated', function(err, channel) {
-        if (err) console.log(err);
-        if (channel) {
-
-        }
-    });
-
-};
-
-

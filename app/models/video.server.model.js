@@ -15,6 +15,11 @@ var VideoSchema = new Schema({
         trim: true,
         default: ''
     },
+    description: {
+        type: String,
+        trim: true,
+        default: ''
+    },
     characters: [{
         type: String,
         trim: true,
