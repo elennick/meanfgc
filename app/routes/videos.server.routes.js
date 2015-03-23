@@ -7,4 +7,5 @@ module.exports = function(app) {
     app.route('/videos').get(videos.getVideos);
     app.route('/load_channel_data').get(channels.loadChannelData);
     app.route('/load_channel_videos').get(channels.loadChannelVideos);
+    app.route('/parse_videos').get(channels.parseVideos);
 };

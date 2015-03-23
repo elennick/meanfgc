@@ -105,3 +105,23 @@ exports.loadChannelData = function(req, res) {
     res.send('OK');
 
 };
+
+exports.parseVideos = function(req, res) {
+    var channelName = req.query.channel;
+
+    var re = /^(.+)?(?=\()\((.+?)(?=\))\) Vs (.+)?(?=\()\((.+?)(?=\))\)/;
+
+    Video.find({'postedBy':channelName},'title players',function(err, videos) {
+        var x = [];
+        videos.forEach(function(video) {
+            var parsed = re.exec(video.title);
+            if (parsed) {
+                video.players.push({player: parsed[1], character: parsed[2]});
+                video.players.push({player: parsed[3], character: parsed[4]});
+                video.save();
+            }
+            
+        });
+    });
+    res.send('OK');
+};
