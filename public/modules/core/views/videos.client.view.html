@@ -1,19 +1,5 @@
 <div data-ng-controller="VideoController">
     <table>
-        <tr ng-repeat="video in videos">
-            <td youtube-video video-id="video.videoId" class="embedded-video"></td>
-            <td style="vertical-align: top; padding-top: 25px;">
-                <ul class="list-unstyled">
-                    <li><strong>Game:</strong> {{ video.game }}</li>
-                    <li><strong>Characters:</strong> {{ video.characters }}</li>
-                    <li><strong>Players:</strong> {{ video.players }}</li>
-                    <li><strong>Video Type:</strong> {{ video.type }}</li>
-                    <li><strong>Event:</strong> {{ video.event }}</li>
-                    <li><strong>Date Posted:</strong> {{ video.postDate }}</li>
-                    <li><strong>Posted By:</strong> {{ video.postedBy }}</li>
-                    <li><strong>Description:</strong> {{ video.description }}</li>
-                </ul>
-            </td>
-        </tr>
+        <tr videorow video="video" ng-repeat="video in videos"></tr>
     </table>
 </div>
