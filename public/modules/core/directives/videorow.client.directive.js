@@ -15,14 +15,14 @@ angular.module('core').directive('videorow', [
                 scope.video.charactersString = 'Unknown';
 
                 for(var i = 0; i < scope.video.players.length; i++) {
-                    if(i == 0) {
+                    if(i === 0) {
                         scope.video.playersString = scope.video.players[i].player;
                     } else {
                         scope.video.playersString += ', ';
                         scope.video.playersString += scope.video.players[i].player;
                     }
 
-                    if(i == 0) {
+                    if(i === 0) {
                         scope.video.charactersString = scope.video.players[i].character;
                     } else {
                         scope.video.charactersString += ', ';
