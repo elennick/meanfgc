@@ -1,6 +1,11 @@
 <div data-ng-controller="VideoController">
     <div filters style="padding-top: 10px;"></div>
-    <table>
-        <tr videorow video="video" ng-repeat="video in videos"></tr>
-    </table>
+    <div ng-if="videos.length > 0">
+        <table>
+            <tr videorow video="video" ng-repeat="video in videos"></tr>
+        </table>
+    </div>
+    <div ng-if="videos.length <= 0">
+        <span style="text-align: center;">No videos match your search!</span>
+    </div>
 </div>
