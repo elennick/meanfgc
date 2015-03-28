@@ -3,10 +3,14 @@
 angular.module('core').directive('filters', [
     function() {
         return {
-            scope: {
-                searchText: '='
-            },
-            templateUrl: 'modules/core/directives/filters.client.template.html'
+            templateUrl: 'modules/core/directives/filters.client.template.html',
+            link: function(scope, element, attrs) {
+                scope.searchText = '';
+
+                scope.onGoClicked = function() {
+                    scope.$emit('go-clicked', scope.searchText);
+                };
+            }
         };
     }
 ]);

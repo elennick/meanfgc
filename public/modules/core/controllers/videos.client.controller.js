@@ -2,12 +2,20 @@
 
 angular.module('core').controller('VideoController', ['$scope', 'VideoService',
     function($scope, VideoService) {
-        VideoService.getVideos()
-            .success(function(response) {
-                $scope.videos = response;
-            })
-            .error(function(response) {
-                console.log('error! ' + response);
-            });
+        $scope.updateVideos = function(limit, searchText) {
+            VideoService.getVideos(limit, searchText)
+                .success(function(response) {
+                    $scope.videos = response;
+                })
+                .error(function(response) {
+                    console.log('error! ' + response);
+                });
+        };
+
+        $scope.$on('go-clicked', function(event, data) {
+            $scope.updateVideos(10, data);
+        });
+
+        $scope.updateVideos(10);
     }
 ]);
