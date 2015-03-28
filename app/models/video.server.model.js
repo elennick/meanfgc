@@ -4,6 +4,7 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
+    textSearch = require('mongoose-text-search'),
     Schema = mongoose.Schema;
 
 /**
@@ -25,12 +26,12 @@ var PlayerSchema = new Schema({
 
 var VideoSchema = new Schema({
     title: {
-        type: String,
+        type: [String],
         trim: true,
         default: ''
     },
     description: {
-        type: String,
+        type: [String],
         trim: true,
         default: ''
     },
@@ -59,9 +60,9 @@ var VideoSchema = new Schema({
         type: String,
         trim: true
     }
-
 });
-
+VideoSchema.plugin(textSearch);
+VideoSchema.index({  description: 'text', title: 'text' });
 
 mongoose.model('Video', VideoSchema);
 mongoose.model('Player',PlayerSchema);

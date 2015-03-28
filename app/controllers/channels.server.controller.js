@@ -40,6 +40,7 @@ var requestHttps = function(channelId,publishedAfter,nextPageToken) {
                 var item = json_data.items[i];
                 new Video({title: item.snippet.title, postDate: item.snippet.publishedAt, description: item.snippet.description,
                     postedBy: item.snippet.channelTitle, videoId: item.id.videoId}).save();
+                console.log('saved video: ' + item.id.videoId);
             }
 
             if (json_data.nextPageToken) {
@@ -73,6 +74,7 @@ exports.loadChannelVideos = function(req, res) {
         if (channel) {
             var last_updated = new Date(channel.last_updated).toISOString();
             requestHttps(channel.youtube_id, last_updated, undefined);
+            res.send('OK');
         }
         else {
             res.sendStatus(404);
@@ -116,6 +118,7 @@ exports.parseVideos = function(req, res) {
         videos.forEach(function(video) {
             var parsed = re.exec(video.title);
             if (parsed) {
+                console.log('parsing video: ' + video.title);
                 video.players.push({player: parsed[1], character: parsed[2]});
                 video.players.push({player: parsed[3], character: parsed[4]});
                 video.save();

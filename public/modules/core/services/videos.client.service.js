@@ -4,8 +4,8 @@
 angular.module('core').service('VideoService', ['$http',
 
     function($http) {
-        this.getVideos = function() {
-            return $http.get('/videos');
+        this.getVideos = function(limit, searchText) {
+            return $http.get('/videos?limit=10');
         };
     }
 ]);
