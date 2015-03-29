@@ -23,8 +23,8 @@ var ChannelSchema = new Schema({
     last_updated: {
         type: Date,
         trim: true,
-        default: '1970-01-01T05:00:00.000Z'
-    },
+        default: Date.now
+    }
 });
 
 mongoose.model('Channel', ChannelSchema);
