@@ -1,13 +1,15 @@
 'use strict';
 
-angular.module('core').controller('VideoController', ['$scope', 'VideoService',
-    function($scope, VideoService) {
+angular.module('core').controller('VideoController', ['$scope', '$timeout', 'VideoService',
+    function($scope, $timeout, VideoService) {
         $scope.updateVideos = function(limit, searchText) {
             VideoService.getVideos(limit, searchText)
                 .success(function(response) {
                     $scope.videos = response;
                     if(response.length > 0) {
-                        $scope.toggleFilters(true);
+                        $timeout(function() {
+                            $scope.toggleFilters(true);
+                        }, 1500);
                     }
                 })
                 .error(function(response) {
@@ -29,6 +31,23 @@ angular.module('core').controller('VideoController', ['$scope', 'VideoService',
                 filterContainer.slideUp();
             } else {
                 filterContainer.slideToggle();
+            }
+        };
+
+        $scope.playerSearchText = '';
+        $scope.playersAutocompleteList = [];
+
+        $scope.updatePlayersAutocompleteList = function() {
+            if($scope.playerSearchText.length > 0) {
+                VideoService.getPlayersLike($scope.playerSearchText)
+                    .success(function (response) {
+                        $scope.playersAutocompleteList = response;
+                    })
+                    .error(function (response) {
+                        console.log('error! ' + response);
+                    });
+            } else {
+                $scope.playersAutocompleteList = [];
             }
         };
 

@@ -10,5 +10,13 @@ angular.module('core').service('VideoService', ['$http',
                 params: { limit: limit, searchText: searchText }
             });
         };
+
+        this.getPlayersLike = function(text) {
+            return $http({
+                method: 'GET',
+                url: 'players',
+                params: { player: text }
+            });
+        }
     }
 ]);

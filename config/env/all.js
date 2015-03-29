@@ -15,6 +15,7 @@ module.exports = {
 			css: [
 				'public/lib/bootstrap/dist/css/bootstrap.css',
 				'public/lib/bootstrap/dist/css/bootstrap-theme.css',
+				'public/lib/allmighty-autocomplete/style/autocomplete.css'
 			],
 			js: [
 				'public/lib/angular/angular.js',
@@ -28,7 +29,9 @@ module.exports = {
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
 				'public/lib/angular-youtube-mb/dist/angular-youtube-embed.min.js',
                 '//www.youtube.com/iframe_api',
-                'public/lib/jquery/dist/jquery.min.js'
+                'public/lib/jquery/dist/jquery.min.js',
+                'public/lib/allmighty-autocomplete/script/autocomplete.js',
+                'public/lib/allmighty-autocomplete/script/app.js'
 			]
 		},
 		css: [

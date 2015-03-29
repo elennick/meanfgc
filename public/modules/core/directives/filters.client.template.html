@@ -1,8 +1,11 @@
 <div style="padding-top: 20px; padding-bottom: 10px;">
-    <table>
+    <table class="filter-table">
         <tr>
-            <td>
+            <td style="padding-right: 25px;">
                 Search Title/Description: <input type="text" ng-model="searchText">&nbsp;<button ng-click="onGoClicked()">Go</button>
+            </td>
+            <td>
+                <span>Search Players: <autocomplete ng-model="playerSearchText" data="playersAutocompleteList" on-type="updatePlayersAutocompleteList"></autocomplete></span>
             </td>
         </tr>
     </table>
