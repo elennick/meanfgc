@@ -6,6 +6,9 @@ angular.module('core').controller('VideoController', ['$scope', 'VideoService',
             VideoService.getVideos(limit, searchText)
                 .success(function(response) {
                     $scope.videos = response;
+                    if(response.length > 0) {
+                        $scope.toggleFilters(true);
+                    }
                 })
                 .error(function(response) {
                     console.log('error! ' + response);
@@ -17,7 +20,16 @@ angular.module('core').controller('VideoController', ['$scope', 'VideoService',
         });
 
         $scope.filterButtonClicked = function() {
-            $('#filter-container').slideToggle();
+            $scope.toggleFilters();
+        };
+
+        $scope.toggleFilters = function(hide) {
+            var filterContainer = $('#filter-container');
+            if(hide) {
+                filterContainer.slideUp();
+            } else {
+                filterContainer.slideToggle();
+            }
         };
 
         $scope.updateVideos(10);

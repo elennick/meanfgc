@@ -3,7 +3,7 @@
     <div id="filter-container" style="display: none;">
         <div filters></div>
     </div>
-    <div style="width: 100%; text-align: center;">
+    <div class="filter-button-container">
         <button ng-click="filterButtonClicked()">Toggle Filters</button>
     </div>
     <div ng-if="videos.length > 0">
@@ -11,7 +11,7 @@
             <tr videorow video="video" ng-repeat="video in videos"></tr>
         </table>
     </div>
-    <div ng-if="videos.length <= 0">
-        <span style="text-align: center;">No videos match your search!</span>
+    <div ng-if="videos.length <= 0" class="no-videos">
+        <span style="padding-top: 100px;">No videos match your search!</span>
     </div>
 </div>
