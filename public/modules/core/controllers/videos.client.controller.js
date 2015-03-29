@@ -16,6 +16,10 @@ angular.module('core').controller('VideoController', ['$scope', 'VideoService',
             $scope.updateVideos(10, data);
         });
 
+        $scope.filterButtonClicked = function() {
+            $('#filter-container').slideToggle();
+        };
+
         $scope.updateVideos(10);
     }
 ]);

@@ -1,5 +1,11 @@
 <div data-ng-controller="VideoController">
-    <div filters style="padding-top: 10px;"></div>
+    <div style="padding-top: 12px;"></div>
+    <div id="filter-container" style="display: none;">
+        <div filters></div>
+    </div>
+    <div style="width: 100%; text-align: center;">
+        <button ng-click="filterButtonClicked()">Toggle Filters</button>
+    </div>
     <div ng-if="videos.length > 0">
         <table>
             <tr videorow video="video" ng-repeat="video in videos"></tr>

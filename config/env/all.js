@@ -27,7 +27,8 @@ module.exports = {
 				'public/lib/angular-ui-utils/ui-utils.js',
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
 				'public/lib/angular-youtube-mb/dist/angular-youtube-embed.min.js',
-                '//www.youtube.com/iframe_api'
+                '//www.youtube.com/iframe_api',
+                'public/lib/jquery/dist/jquery.min.js'
 			]
 		},
 		css: [
