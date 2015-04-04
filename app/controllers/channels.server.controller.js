@@ -17,7 +17,7 @@ var requestHttps = function(channelId,publishedAfter,nextPageToken) {
     path += ('&part=snippet');
     path += ('&maxResults=50');
     path += ('&channelId=' + channelId);
-    path += ('&publishedAfter=' + publishedAfter);
+//    path += ('&publishedAfter=' + publishedAfter);
     if (nextPageToken) {
         path += ('&pageToken=' + nextPageToken);
     }
@@ -35,7 +35,9 @@ var requestHttps = function(channelId,publishedAfter,nextPageToken) {
         });
 
         response.on('end', function() {
+            console.log('request data: ' + request_data);
             var json_data = JSON.parse(request_data);
+            console.log('json data' + json_data);
             for (var i=0; i < json_data.items.length; i++) {
                 var item = json_data.items[i];
                 new Video({title: item.snippet.title, postDate: item.snippet.publishedAt, description: item.snippet.description,
@@ -61,6 +63,7 @@ var requestHttps = function(channelId,publishedAfter,nextPageToken) {
         });
     };
 
+    console.log('sending request... ' + path);
     https.request(options,callback).end();
 
 };

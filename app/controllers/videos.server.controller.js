@@ -21,27 +21,24 @@ exports.getVideos = function(req, res) {
         limit = 10;
     }
 
+    var query;
     var searchText = req.param('searchText');
+
     if(!searchText) {
-        var query = Video.find({}).limit(limit);
+        query = Video.find({}).limit(limit);
         query.exec(function (err, docs) {
             res.json(docs);
         });
     } else {
-        Video.textSearch(searchText, { limit: limit },
-            function(err, output) {
-                if(err) {
-                    console.log(err);
-                    res.json(err);
-                } else {
-                    var docs = [];
-                    for (var i = 0; i < output.results.length; i++) {
-                        var obj = output.results[i].obj;
-                        docs.push(obj);
-                    }
-                    res.json(docs);
-                }
-            });
+        query = Video.find( { $text: { $search: searchText } }).limit(limit);
+        query.exec(function (err, docs) {
+            if(err) {
+                console.log(err);
+                res.json(err);
+            } else {
+                res.json(docs);
+            }
+        });
     }
 };
 
@@ -65,7 +62,7 @@ exports.getPlayersAutocomplete = function(req, res) {
                    var video = output[i];
                    for(var j = 0; j < video.players.length; j++) {
                        var playerName = video.players[j].player;
-                       if(playersRes.indexOf(playerName) == -1) {
+                       if(playersRes.indexOf(playerName) === -1) {
                            playersRes.push(video.players[j].player);
                        }
                    }

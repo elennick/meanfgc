@@ -17,6 +17,6 @@ angular.module('core').service('VideoService', ['$http',
                 url: 'players',
                 params: { player: text }
             });
-        }
+        };
     }
 ]);

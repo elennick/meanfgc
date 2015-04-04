@@ -4,7 +4,6 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-    textSearch = require('mongoose-text-search'),
     Schema = mongoose.Schema;
 
 /**
@@ -61,7 +60,6 @@ var VideoSchema = new Schema({
         trim: true
     }
 });
-VideoSchema.plugin(textSearch);
 VideoSchema.index({  description: 'text', title: 'text' });
 
 mongoose.model('Video', VideoSchema);
