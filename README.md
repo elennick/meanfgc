@@ -8,3 +8,10 @@ MeanFGC is the working title for a site that aggregates fighting game videos. Th
 * more...
 
 This project is very early in development.
+
+Dev setup:
+
+* Follow the "Getting Started - Prerequisites" section on the MEAN.JS site if you need to set up Node.js, npm, bower and/or grunt: http://meanjs.org/docs.html
+* Clone this repo.
+* Run "npm install" from the repo directory.
+* Run "grunt" from the repo directory. The application should be accessible at http://localhost:3000.
