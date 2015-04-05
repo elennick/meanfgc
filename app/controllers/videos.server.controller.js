@@ -21,25 +21,14 @@ exports.getVideos = function(req, res) {
         limit = 10;
     }
 
-    var query;
-    var searchText = req.param('searchText');
-
-    if(!searchText) {
-        query = Video.find({}).limit(limit);
-        query.exec(function (err, docs) {
+    Video.findByParams(req.query, limit, function(err, docs) {
+        if(err) {
+            console.log(err);
+            res.json(err);
+        } else {
             res.json(docs);
-        });
-    } else {
-        query = Video.find( { $text: { $search: searchText } }).limit(limit);
-        query.exec(function (err, docs) {
-            if(err) {
-                console.log(err);
-                res.json(err);
-            } else {
-                res.json(docs);
-            }
-        });
-    }
+        }
+    });
 };
 
 /**

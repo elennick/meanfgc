@@ -92,7 +92,7 @@ exports.loadChannelData = function(req, res) {
     var channelDataSet = [
         {
             name: 'YogaFlame24',
-            youtube_id: 'UC1UzB_b7NSxoRjhZZDicuqw',
+            youtube_id: 'UC1UzB_b7NSxoRjhZZDicuqw'
         }  
     ];
 
