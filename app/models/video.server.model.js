@@ -49,6 +49,9 @@ var VideoSchema = new Schema({
     },
     videoId: {
         type: String,
+        unique: true,
+        index: true,
+        required: true,
         trim: true
     },
     event: {
