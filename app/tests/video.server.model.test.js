@@ -144,6 +144,17 @@ describe('Video Model Unit Tests:', function () {
                 done();
             });
         });
+
+        //TODO this fails at the moment because player search is actually not implemented properly... it currently
+        //TODO returns both players from a video in a result instead of just returning ones similar to the search text
+//        it('should be able to return autocomplete results for player names', function (done) {
+//            return Video.findPlayersLike('Eva', function (err, docs) {
+//                should.not.exist(err);
+//                docs.should.have.length(1);
+//                docs[0].should.equal(player1.player);
+//                done();
+//            });
+//        });
     });
 
     after(function (done) {

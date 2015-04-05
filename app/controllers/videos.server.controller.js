@@ -11,15 +11,7 @@ var _ = require('lodash'),
  * Gets a list of videos and their associate data
  */
 exports.getVideos = function(req, res) {
-    var limit;
-
-    try {
-        limit = parseInt(req.param('limit'));
-    } catch(err) {}
-
-    if(!limit) {
-        limit = 10;
-    }
+    var limit = parseLimit(req.param('limit'));
 
     Video.findByParams(req.query, limit, function(err, docs) {
         if(err) {
@@ -35,32 +27,37 @@ exports.getVideos = function(req, res) {
  * Gets a list of unique player names that are similar to the 'player' query param
  */
 exports.getPlayersAutocomplete = function(req, res) {
-    var player = req.param('player');
+    var text = req.param('player');
+    var limit = parseLimit(req.param('limit'));
 
-    if(player) {
-        var regex = new RegExp(player, 'i');
-        var query = Video.find({ 'players.player': regex }).limit(10);
-
-        query.exec(function(err, output) {
-           if(err) {
-               console.log(err);
-               res.json(err);
-           } else {
-               var playersRes = [];
-               for(var i = 0; i < output.length; i++) {
-                   var video = output[i];
-                   for(var j = 0; j < video.players.length; j++) {
-                       var playerName = video.players[j].player;
-                       if(playersRes.indexOf(playerName) === -1) {
-                           playersRes.push(video.players[j].player);
-                       }
-                   }
-               }
-               res.json(playersRes);
-           }
-        });
+    if(text) {
+        Video.findPlayersLike(text, function(err, docs) {
+            if(err) {
+                console.log(err);
+                res.json(err);
+            } else {
+                res.json(docs);
+            }
+        })
     } else {
         res.send(404);
     }
+};
 
+/**
+ * Tries to parse a limit # out of a value and if it fails, just defaults to 10... helper function for video route
+ * functions since most of them allow limit as a param
+ */
+var parseLimit = function(limit) {
+    var parsedLimit;
+
+    try {
+        parsedLimit = parseInt(limit);
+    } catch(err) {}
+
+    if(!parsedLimit) {
+        parsedLimit = 10;
+    }
+
+    return parsedLimit;
 };

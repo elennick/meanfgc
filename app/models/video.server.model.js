@@ -90,5 +90,29 @@ VideoSchema.statics.findByParams = function (params, limit, callback) {
     });
 };
 
+VideoSchema.statics.findPlayersLike = function(text, callback) {
+    var regex = new RegExp(text, 'i');
+    var query = this.find({ 'players.player': regex }).limit(10);
+
+    query.exec(function(err, output) {
+        if(err) {
+            console.log(err);
+            callback(err, output);
+        } else {
+            var playersRes = [];
+            for(var i = 0; i < output.length; i++) {
+                var video = output[i];
+                for(var j = 0; j < video.players.length; j++) {
+                    var playerName = video.players[j].player;
+                    if(playersRes.indexOf(playerName) === -1) {
+                        playersRes.push(video.players[j].player);
+                    }
+                }
+            }
+            callback(err, playersRes);
+        }
+    });
+};
+
 mongoose.model('Video', VideoSchema);
 mongoose.model('Player',PlayerSchema);
