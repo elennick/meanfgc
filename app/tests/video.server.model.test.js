@@ -17,8 +17,8 @@ var player1, player2, player3, player4;
 /**
  * Unit tests
  */
-describe('Video Model Unit Tests:', function() {
-    before(function(done) {
+describe('Video Model Unit Tests:', function () {
+    before(function (done) {
         player1 = new Player({
             player: 'Evan',
             character: 'Ryu'
@@ -37,7 +37,7 @@ describe('Video Model Unit Tests:', function() {
         });
 
         video1 = new Video({
-            title: 'Test Title 1',
+            title: 'This is a long and wordy title so that we can search on it.',
             description: 'Test Video 1',
             players: [player1, player2],
             postedBy: 'TestUser1',
@@ -48,7 +48,7 @@ describe('Video Model Unit Tests:', function() {
         });
         video2 = new Video({
             title: 'Test Title 2',
-            description: 'Test Video 2',
+            description: 'This is a very elaborate description so that we can search on it.',
             players: [player3, player4],
             postedBy: 'TestUser2',
             game: 'UMVC3',
@@ -70,39 +70,83 @@ describe('Video Model Unit Tests:', function() {
         done();
     });
 
-    describe('Video Model Get', function() {
-        it('should start with no videos', function(done) {
-           Video.find({}, function(err, docs) {
-               docs.should.have.length(0);
-               done();
-           });
+    describe('Video Model Get', function () {
+        it('should start with no videos', function (done) {
+            Video.find({}, function (err, docs) {
+                docs.should.have.length(0);
+                done();
+            });
         });
 
-        it('should be able to save videos', function(done) {
+        it('should be able to save videos', function (done) {
             video1.save(done);
         });
 
-        it('should be able to save another video with a different video id', function(done) {
+        it('should be able to save another video with a different video id', function (done) {
             video2.save(done);
         });
 
-        it('should fail to save a video with an existing video id', function(done) {
-            return dupeOfVideo1.save(function(err) {
+        it('should fail to save a video with an existing video id', function (done) {
+            return dupeOfVideo1.save(function (err) {
                 should.exist(err);
                 done();
             });
         });
 
-        it('should fail to save a video with no video id', function(done) {
+        it('should fail to save a video with no video id', function (done) {
             dupeOfVideo1.videoId = '';
-            return dupeOfVideo1.save(function(err) {
+            return dupeOfVideo1.save(function (err) {
                 should.exist(err);
+                done();
+            });
+        });
+
+        it('should be able to limit videos returned', function (done) {
+            return Video.findByParams([], 1, function (err, docs) {
+                should.not.exist(err);
+                docs.should.have.length(1);
+                done();
+            });
+        });
+
+        it('should be able to return results by player name', function (done) {
+            var params = {};
+            params.player = player1.player;
+
+            return Video.findByParams(params, 10, function (err, docs) {
+                should.not.exist(err);
+                docs.should.have.length(1);
+                docs[0].players[0].player.should.equal(player1.player);
+                done();
+            });
+        });
+
+        it('should be able to return results by description', function (done) {
+            var params = {};
+            params.searchText = 'very elaborate description';
+
+            return Video.findByParams(params, 1, function (err, docs) {
+                should.not.exist(err);
+                docs.should.have.length(1);
+                docs[0].description[0].should.equal(video2.description[0]);
+                done();
+            });
+        });
+
+        it('should be able to return results by title', function (done) {
+            var params = {};
+            params.searchText = 'long and wordy title';
+
+            return Video.findByParams(params, 1, function (err, docs) {
+                should.not.exist(err);
+                docs.should.have.length(1);
+                docs[0].title[0].should.equal(video1.title[0]);
                 done();
             });
         });
     });
 
-    after(function(done) {
+    after(function (done) {
         Video.remove().exec();
         done();
     });

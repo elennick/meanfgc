@@ -67,23 +67,27 @@ var VideoSchema = new Schema({
 VideoSchema.index({  description: 'text', title: 'text' });
 
 VideoSchema.statics.findByParams = function (params, limit, callback) {
-    console.log(params);
     var searchTextParam = params.searchText;
     var playerSearchParam = params.player;
 
     var query;
 
-    if(!searchTextParam) {
-        query = this.find({}).limit(limit);
-        query.exec(function (err, docs) {
-            callback(err, docs);
-        });
+    if (searchTextParam) {
+        query = this.find( { $text: { $search: searchTextParam } },
+                           { score: { $meta: "textScore" } } )
+                    .sort( { score: { $meta: "textScore" } } )
+                    .limit( limit );
+    } else if(playerSearchParam) {
+        query = this.find( { 'players.player': playerSearchParam } )
+                    .limit( limit );
     } else {
-        query = this.find( { $text: { $search: searchTextParam } }).limit(limit);
-        query.exec(function (err, docs) {
-            callback(err, docs);
-        });
+        query = this.find( {} )
+                    .limit( limit );
     }
+
+    query.exec(function (err, docs) {
+        callback(err, docs);
+    });
 };
 
 mongoose.model('Video', VideoSchema);
