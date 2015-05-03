@@ -14,7 +14,8 @@
     "angular-bootstrap": "~0.11.2",
     "angular-ui-utils": "~0.1.1",
     "angular-ui-router": "~0.2.11",
-    "angular-youtube-mb": "~1.0.0",
-    "allmighty-autocomplete": "git@github.com:JustGoscha/allmighty-autocomplete.git"
+    "angular-youtube-mb": "~1.0.1",
+    "allmighty-autocomplete": "git@github.com:JustGoscha/allmighty-autocomplete.git",
+    "moment": "~2.10.2"
   }
 }

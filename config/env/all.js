@@ -28,6 +28,7 @@ module.exports = {
 				'public/lib/angular-ui-utils/ui-utils.js',
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
 				'public/lib/angular-youtube-mb/dist/angular-youtube-embed.min.js',
+                'public/lib/moment/moment.js',
                 '//www.youtube.com/iframe_api',
                 'public/lib/jquery/dist/jquery.min.js',
                 'public/lib/allmighty-autocomplete/script/autocomplete.js',

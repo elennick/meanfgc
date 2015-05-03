@@ -8,9 +8,9 @@ angular.module('core').directive('videorow', [
             },
             templateUrl: 'modules/core/directives/videorow.client.template.html',
             link: function(scope, element, attrs, controller) {
-//                if(scope.video.postDate) {
-//                    scope.video.postDate = moment(scope.video.postDate);
-//                }
+                if(scope.video.postDate) {
+                    scope.video.postDate = moment(scope.video.postDate).format('MMMM Do YYYY, h:mm:ss a');
+                }
 
                 if(!scope.video.game) {
                     scope.video.game = 'Unknown';
