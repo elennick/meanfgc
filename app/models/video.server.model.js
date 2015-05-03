@@ -25,12 +25,12 @@ var PlayerSchema = new Schema({
 
 var VideoSchema = new Schema({
     title: {
-        type: [String],
+        type: String,
         trim: true,
         default: ''
     },
     description: {
-        type: [String],
+        type: String,
         trim: true,
         default: ''
     },
@@ -115,4 +115,4 @@ VideoSchema.statics.findPlayersLike = function(text, callback) {
 };
 
 mongoose.model('Video', VideoSchema);
-mongoose.model('Player',PlayerSchema);
+mongoose.model('Player', PlayerSchema);

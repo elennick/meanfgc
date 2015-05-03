@@ -128,7 +128,7 @@ describe('Video Model Unit Tests:', function () {
             return Video.findByParams(params, 1, function (err, docs) {
                 should.not.exist(err);
                 docs.should.have.length(1);
-                docs[0].description[0].should.equal(video2.description[0]);
+                docs[0].description.should.equal(video2.description);
                 done();
             });
         });
@@ -140,7 +140,7 @@ describe('Video Model Unit Tests:', function () {
             return Video.findByParams(params, 1, function (err, docs) {
                 should.not.exist(err);
                 docs.should.have.length(1);
-                docs[0].title[0].should.equal(video1.title[0]);
+                docs[0].title.should.equal(video1.title);
                 done();
             });
         });
