@@ -74,8 +74,8 @@ VideoSchema.statics.findByParams = function (params, limit, callback) {
 
     if (searchTextParam) {
         query = this.find( { $text: { $search: searchTextParam } },
-                           { score: { $meta: "textScore" } } )
-                    .sort( { score: { $meta: "textScore" } } )
+                           { score: { $meta: 'textScore' } } )
+                    .sort( { score: { $meta: 'textScore' } } )
                     .limit( limit );
     } else if(playerSearchParam) {
         query = this.find( { 'players.player': playerSearchParam } )

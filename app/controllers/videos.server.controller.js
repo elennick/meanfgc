@@ -8,6 +8,24 @@ var _ = require('lodash'),
     Video = mongoose.model('Video');
 
 /**
+ * Tries to parse a limit # out of a value and if it fails, just defaults to 10... helper function for video route
+ * functions since most of them allow limit as a param
+ */
+var parseLimit = function(limit) {
+    var parsedLimit;
+
+    try {
+        parsedLimit = parseInt(limit);
+    } catch(err) {}
+
+    if(!parsedLimit) {
+        parsedLimit = 10;
+    }
+
+    return parsedLimit;
+};
+
+/**
  * Gets a list of videos and their associate data
  */
 exports.getVideos = function(req, res) {
@@ -38,26 +56,8 @@ exports.getPlayersAutocomplete = function(req, res) {
             } else {
                 res.json(docs);
             }
-        })
+        });
     } else {
         res.send(404);
     }
-};
-
-/**
- * Tries to parse a limit # out of a value and if it fails, just defaults to 10... helper function for video route
- * functions since most of them allow limit as a param
- */
-var parseLimit = function(limit) {
-    var parsedLimit;
-
-    try {
-        parsedLimit = parseInt(limit);
-    } catch(err) {}
-
-    if(!parsedLimit) {
-        parsedLimit = 10;
-    }
-
-    return parsedLimit;
 };
