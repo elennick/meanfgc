@@ -5,8 +5,8 @@ var ApplicationConfiguration = (function() {
 	// Init module configuration options
 	var applicationModuleName = 'MeanFGC';
 	var applicationModuleVendorDependencies
-        = ['ngResource', 'ngCookies',  'ngAnimate',  'ngTouch',  'ngSanitize',
-            'ui.router', 'ui.bootstrap', 'ui.utils', 'youtube-embed', 'autocomplete'];
+        = ['ngResource', 'ngCookies',  'ngAnimate',  'ngTouch',  'ngSanitize', 'ngMessages',
+            'ui.router', 'ui.bootstrap', 'ui.utils', 'youtube-embed', 'autocomplete', 'ngFabForm'];
 
 	// Add a new vertical module
 	var registerModule = function(moduleName, dependencies) {

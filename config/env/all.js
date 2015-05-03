@@ -24,6 +24,7 @@ module.exports = {
 				'public/lib/angular-animate/angular-animate.js', 
 				'public/lib/angular-touch/angular-touch.js', 
 				'public/lib/angular-sanitize/angular-sanitize.js', 
+				'public/lib/angular-messages/angular-messages.js',
 				'public/lib/angular-ui-router/release/angular-ui-router.js',
 				'public/lib/angular-ui-utils/ui-utils.js',
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
@@ -32,7 +33,8 @@ module.exports = {
                 '//www.youtube.com/iframe_api',
                 'public/lib/jquery/dist/jquery.min.js',
                 'public/lib/allmighty-autocomplete/script/autocomplete.js',
-                'public/lib/allmighty-autocomplete/script/app.js'
+                'public/lib/allmighty-autocomplete/script/app.js',
+                'public/lib/ng-fab-form/dist/ng-fab-form.js'
 			]
 		},
 		css: [
